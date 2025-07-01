@@ -1,0 +1,79 @@
+---
+// src/pages/index.astro
+import PasskeyAuth from '../components/PasskeyAuth/lib/PasskeyAuth.svelte';
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>パスキーデモアプリ</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      main {
+        max-width: 450px;
+        width: 100%;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 2rem;
+      }
+      .demo-info {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>パスキーデモ</h1>
+      
+      <div class="demo-info">
+        <strong>デモ機能:</strong><br>
+        • 日本語対応 (locale="ja")<br>
+        • カスタムタイトル (title, dashboardTitle)<br>
+        • SimpleWebAuthn v13対応<br>
+        • アダプターパターンによる柔軟なデータベース統合
+      </div>
+
+      <!--
+        PasskeyAuthコンポーネントをAstroアイランドとして組み込みます。
+        client:load ディレクティブにより、ページロード時にSvelteコンポーネントがハイドレートされます。
+        APIエンドポイントのURLをpropsとして渡します。
+        日本語ロケールとカスタムタイトルを設定します。
+      -->
+      <PasskeyAuth
+        client:load
+        registerRequestUrl="/api/auth/register-request"
+        registerResponseUrl="/api/auth/register-response"
+        loginRequestUrl="/api/auth/login-request"
+        loginResponseUrl="/api/auth/login-response"
+        logoutUrl="/api/auth/logout"
+        sessionUrl="/api/auth/session"
+        locale="ja"
+        title="デモアプリにログイン"
+        dashboardTitle="デモアプリへようこそ！"
+      />
+    </main>
+  </body>
+</html>
